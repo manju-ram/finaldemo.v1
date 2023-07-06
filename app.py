@@ -28,7 +28,7 @@ sslmode = "REQUIRED"
 # MYSQL_DB = 'elogari'
 
 def create_connection():
-    return pymysql.connect(host=MYSQL_HOST, user=MYSQL_USER, password=MYSQL_PASSWORD, db=MYSQL_DB, port=MYSQL_PORT)
+    return pymysql.connect(host=MYSQL_HOST, user=MYSQL_USER, password=MYSQL_PASSWORD, db=MYSQL_DB, port=MYSQL_PORT,ssl={'sslmode': sslmode})
 
 def get_filtered_data(start_datetime, end_datetime):
     connection = create_connection()  # Call the function to obtain the connection object
