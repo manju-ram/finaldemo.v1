@@ -1,0 +1,425 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>DAQ IOT MODULE </title>
+
+    <link type="text/css" rel="stylesheet" href="/static/styles/style1.css"/>
+    <!-- Import Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css"
+    />
+
+    <!-- Include SweetAlert2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
+
+  </head>
+  <body>
+    <div class="header">
+      <h1 id= "ioko">DAQ IOT MODULE</h1>
+        <div class="app3">
+          <div id="status" class="status"></div>
+        </div>
+    </div>
+    <div id="sidebar">    
+      <img src="/static/logo/logo.png" id="access_logo">
+      <ul>
+        <li><button onclick="handleClick('ANALOG I/P(5V)')" class="turu1">ANALOG I/P(5V)</button></li>
+        <li><button onclick="handleClick1('ISO.DIGITAL I/P')" class="turu2" id="do_input">ISO.DIGITAL I/P</button></li>
+        <li><button onclick="handleClick2('4-20mA I/P')" class="turu3">4-20mA I/P</button></li>
+        <li><button onclick="handleClick4('output')" class="turu4">OUTPUT</button></li>
+        <li><button onclick="handleClick5('REPORT ')" class="turu5">ONLINE DATA</button></li>
+        <li>
+          <button onclick="toggleDropdown()" class="turu6">DATA LOG</button>
+          <ul class="dropdown" id="dropdownMenu" style="display: none;">
+            <li>
+              <form id="down1" onsubmit="return false;">
+                <select id="monolo" name="monolok">
+                  <option value="">Select</option>
+                  <option value="5 seconds">5 seconds</option>
+                  <option value="15 seconds" >15 seconds</option>
+                  <option value="30 seconds">30 seconds</option>
+                  <option value="60 seconds">60 seconds</option>
+                </select>
+                <button id="startBtn" onclick="startLogging()">Start</button>
+                <button id="stopBtn" onclick="stopLogging()">Stop</button>
+                <span id="statusLabel">Logging Stopped</span>
+              </form>
+              
+            </li>
+          </ul>
+        </li>
+        <li><button formaction="/DataFilter" onclick="handleClick6('Data Filter')" class="turu6">DATA HISTORY</button></li>
+        
+        
+      </ul>
+
+       
+      
+   
+      <button id="dark-mode-btn">
+        <input onclick="toggleDarkMode()" type="checkbox" id="switch" /><label for="switch"
+            >Toggle</label>
+            <p id="mode">Light</p>
+            <p id="mode1">Dark</p>
+          </button>
+        </div>
+        <div class="gayab">
+          <input  id="toggle1" />
+            <div class="toggle1"></div>
+          </label>
+        </div>
+
+        <div id="csv">
+          <div class="markoq">
+           <h1 class="str">ONLINE DATA VIEW </h1>
+          </div>
+          <div id="hol">
+            <button onclick="startDataStorage()" class="button-Start">Start  Data</button>
+            <button onclick="stopDataStorage()" class="button-Start">Stop  Data</button>
+            <button onclick="downloadData()" class="button-Start">Download Data</button>
+            <button onclick="resetData()" class="button-Start">Reset Data</button>
+          </div>
+          <div class="markoq">
+            <div id= "marko">
+              <table id="data-table">
+                <thead>
+                <tr>
+                  <th>SL.no</th>
+                  <th>Timestamp</th>
+                  <th>4-20 mA CH-1</th>
+                  <th>4-20 mA CH-2</th>
+                  <th>4-20 mA CH-3</th>
+                  <th>4-20 mA CH-4</th>
+                  <th>DI CH-1</th>
+                  <th>DI CH-2</th>
+                  <th>DI CH-3</th>
+                  <th>DI CH-4</th>
+                  <th>AI CH-1</th>
+                  <th>AI CH-2</th>
+                  <th>AI CH-3</th>
+                  <th>AI CH-4</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div> 
+ 
+        
+        <div class="container-fluid">
+          <div id="landing_img_container">
+            
+          </div>
+             <img src="/static/iot.png" id="landing_img">
+        
+          <div class="chart-container">
+            <!-- Create a canvas element for the first chart -->
+            <div class="chart-info" id="chartInfo"></div>
+            <canvas id="myChart"></canvas>
+            <!-- Create a canvas element for the second chart -->
+            <div class="chart-info" id="chartInfo2"></div>
+            <canvas id="myChart2"></canvas>
+          </div>
+       
+          <div class="chart-container1">
+            <!-- Create a canvas element for the chart -->
+            <div class="chart-info" id="chartInfo3"></div>
+            <canvas id="myChart3"></canvas>
+        
+            <div class="chart-info" id="chartInfo4"></div>
+            <canvas id="myChart4"></canvas>
+          </div>
+        
+          <div class="chart-container2">
+            <!-- Create a canvas element for the chart -->
+            <div class="chart-info" id="chartInfo5"></div>
+            <canvas id="myChart5"></canvas>
+        
+            <div class="chart-info" id="chartInfo6"></div>
+            <canvas id="myChart6"></canvas>
+          </div>
+        
+          <div class="chart-container3">
+            <!-- Create a canvas element for the chart -->
+            <div class="chart-info" id="chartInfo7"></div>
+            <canvas id="myChart7"></canvas>
+        
+            <div class="chart-info" id="chartInfo8"></div>
+            <canvas id="myChart8"></canvas>
+          </div>
+
+          <!-- 4-20mA SECTION -->
+         
+          <div class="chart-container9">
+            <!-- Create a canvas element for the chart -->
+            <div class="chart-info" id="chartInfo9"></div>
+            <canvas id="myChart9"></canvas>
+        
+            <div class="chart-info" id="chartInfo10"></div>
+            <canvas id="myChart10"></canvas>
+          </div>
+     
+          <div class="chart-container10">
+            <!-- Create a canvas element for the chart -->
+            <div class="chart-info" id="chartInfo11"></div>
+            <canvas id="myChart11"></canvas>
+        
+            <div class="chart-info" id="chartInfo12"></div>
+            <canvas id="myChart12"></canvas>
+          </div>
+        
+        </div>
+
+        <div class="container" id="bgmi_container">
+          <div id= "bgmi">
+            <h1 id="sam">Data Filter Dashboard</h1>
+            <div id="flow_co">
+              <form action="/filter_data" method="POST">
+                <span class="visually-hidden" id="start_date_label">Start Date:</span>
+                <input type="date" id="start_date" name="start_date" required aria-labelledby="start_date_label">
+              
+                <span class="visually-hidden" id="start_time_label">Start Time:</span>
+                <input type="time" id="start_time" name="start_time" required aria-labelledby="start_time_label">
+              
+                <span class="visually-hidden" id="end_date_label">End Date:</span>
+                <input type="date" id="end_date" name="end_date" required aria-labelledby="end_date_label">
+              
+                <span class="visually-hidden" id="end_time_label">End Time:</span>
+                <input type="time" id="end_time" name="end_time" required aria-labelledby="end_time_label">
+              
+                <input type="submit" value="Filter">
+                <button onclick="downloadData()">Download Data</button>
+                
+              </form>
+              
+            </div>
+            <br>
+        
+            
+        
+        </div>
+        </div>
+
+      <div class="out"id="out">
+          <div class="showme1">
+           <h3 class="ao">ANALOG OUTPUT</h3>
+           <h3 class="do">DIGITAL OUTPUT</h3>
+           <hr class="midLine"/>
+           <div class="ao_Container">
+            <div class="form-container">
+              <form id="form1">
+                <p class='analog_label' id='analog_label1'>Analog Output 1</p>
+                <input type="number"  id='ip1' placeholder="( 0.0 - 5.0 V )" min="0.0" max="5.0" step="0.1">
+                <input type="submit" id="sub1" value="Submit">
+              </form>
+            </div>
+            <div class="form-container2">
+              <form id="form2">
+                <p class='analog_label' id='analog_label2'>Analog Output 2</p>
+                <input type="number" id='ip2'placeholder="( 0.0 - 5.0 V )" min="0.0" max="5.0" step="0.1">
+                <!-- <input type="submit" value="Submit"> -->
+              </form>
+            </div>
+            <div class="form-container3">
+              <form id="form3">
+                <p class='analog_label' id='analog_label3'>Analog Output 3</p>
+                <input type="number" id='ip3'placeholder="( 0.0 - 5.0 V )" min="0.0" max="5.0" step="0.1">
+                <!-- <input type="submit" value="Submit"> -->
+              </form>
+            </div>
+            <div class="form-container4">
+              <form id="form4">
+                <p class='analog_label' id='analog_label4'> Analog Output 4</p>
+                <input type="number" id='ip4' placeholder="( 0.0 - 5.0 V )" min="0.0" max="5.0" step="0.1">
+                <!-- <input type="submit" value="Submit"> -->
+              </form>
+            </div>
+            <div id="result"></div>
+            
+          
+            </div>
+
+            <div>
+              <div class="toggle-buttons">
+                <button class="toggle-button" onclick="toggleOutput(1)"></button>
+                <button class="toggle-button" onclick="toggleOutput(2)"></button>
+                <button class="toggle-button" onclick="toggleOutput(3)"></button>
+                <button class="toggle-button" onclick="toggleOutput(4)"></button>
+              </div>
+              <div class="state", id='do_label'>
+                <p>Digital Output 1 is <span class="toggle-state">OFF</span>.</p>
+                <p>Digital Output 2 is <span class="toggle-state">OFF</span>.</p>
+                <p>Digital Output 3 is <span class="toggle-state">OFF</span>.</p>
+                <p>Digital Output 4 is <span class="toggle-state">OFF</span>.</p>
+              </div>
+              <p id="do_submit"></p>
+              <button onclick="submitData()" id="do_submit_btn">Submit</button>
+            </div>
+            
+            
+          </div>
+      </div>
+      <div id="box-container">
+      <div class="digital_output_container">
+        <!-- Box 1 -->
+        <div class="square" id="square1">
+            <p class="ch_label">Digital Input CH-1</p>
+            <p><span id="ch1_label" class="ch_status">OFF</span></p>
+        </div>
+        <!-- Box 2 -->
+        <div class="square" id="square2">
+            <p class="ch_label">Digital Input CH-2</p>
+            <p><span id="ch2_label" class="ch_status">OFF</span></p>
+        </div>
+      </div>
+      <div class="digital_output_container" id="digital_output_container2">
+        <!-- Box 3 -->
+        <div class="square" id="square3">
+            <p class="ch_label">Digital Input CH-3</p>
+            <p><span id="ch3_label" class="ch_status">OFF</span></p>
+        </div>
+        <!-- Box 4 -->
+        <div class="square" id="square4">
+            <p class="ch_label">Digital Input CH-4</p>
+            <p><span id="ch4_label" class="ch_status">OFF</span></p>
+        </div>
+      </div>
+    
+    </div>
+        
+        <script src="/static/JS/home.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+          let intervalIdf; // Variable to store the interval ID
+          let serialNumber = 1; // Auto-incrementing serial number
+          let isDataStorageRunning = false; // Flag to track the state of data storage
+        
+          function startDataStorage() {
+            if (!isDataStorageRunning) {
+              intervalIdf = setInterval(fetchData, 1000); // Fetch data every second
+              isDataStorageRunning = true;
+            }
+          }
+        
+          function stopDataStorage() {
+            clearInterval(intervalIdf); // Stop the interval
+            isDataStorageRunning = false;
+          }
+        
+          function fetchData() {
+            $.ajax({
+              url: '/data/',
+              method: 'GET',
+              dataType: 'json',
+              success: function(data) {
+                console.log(data)
+                updateTable(data); // Update the table with the fetched data
+              },
+              error: function(xhr, status, error) {
+                console.log("Error fetching data:", error);
+              }
+            });
+          }
+        
+          function updateTable(data) {
+            // Get the table body element
+            let tableBody = document.querySelector("#data-table tbody");
+        
+            // Create a new row for the data
+            let newRow = tableBody.insertRow();
+        
+            // Add the serial number cell to the new row
+            let serialNumberCell = newRow.insertCell();
+            serialNumberCell.textContent = serialNumber;
+        
+            // Add the timestamp cell to the new row
+            let timestampCell = newRow.insertCell();
+            timestampCell.textContent = getCurrentTimestamp();
+        
+            // Increment the serial number for the next row
+            serialNumber++;
+        
+            // Loop through the data and add cells to the new row
+           
+            data.forEach(function(row) {
+              
+             
+              
+              if(row.CHANNEL>=4 && row.CHANNEL<=7){
+                let valueCell = newRow.insertCell();
+                valueCell.textContent = parseFloat(row.VALUE).toFixed(4)>3?"ON":"OFF";
+              }else{
+                let valueCell = newRow.insertCell();
+                valueCell.textContent = parseFloat(row.VALUE).toFixed(4);
+              }
+             
+            });
+          }
+        
+          function getCurrentTimestamp() {
+            // Get the current date and time
+            let currentTimestamp = new Date();
+        
+            // Adjust the timestamp to India time (IST)
+            currentTimestamp.setHours(currentTimestamp.getHours()); // Add 5 hours for IST
+            currentTimestamp.setMinutes(currentTimestamp.getMinutes()); // Add 30 minutes for IST
+        
+            // Format the time as desired (e.g., "HH:MM:SS")
+            let formattedTime = currentTimestamp.toTimeString().split(" ")[0];
+        
+            return formattedTime;
+          }
+        
+          function downloadData() {
+            // Get the table element
+            let table = document.getElementById("data-table");
+        
+            // Generate the CSV content
+            let csvContent = "data:text/csv;charset=utf-8,";
+        
+            // Loop through the table rows and cells to create the CSV content
+            for (let i = 0; i < table.rows.length; i++) {
+              let rowData = [];
+        
+              for (let j = 0; j < table.rows[i].cells.length; j++) {
+                rowData.push(table.rows[i].cells[j].textContent);
+              }
+        
+              csvContent += rowData.join(",") + "\r\n";
+            }
+        
+            // Create a temporary link element to trigger the download
+            let link = document.createElement("a");
+            link.setAttribute("href", encodeURI(csvContent));
+            link.setAttribute("download", "data.csv");
+            document.body.appendChild(link);
+        
+            // Trigger the click event on the link element to start the download
+            link.click();
+        
+            // Cleanup the temporary link element
+            document.body.removeChild(link);
+          }
+        
+          function resetData() {
+            // Get the table body element
+            let tableBody = document.querySelector("#data-table tbody");
+        
+            // Remove all rows from the table
+            tableBody.innerHTML = "";
+        
+            // Reset the serial number counter
+            serialNumber = 1;
+          }
+        
+        </script>
+
+        
+</body>
+  </html>        
+        
+
+

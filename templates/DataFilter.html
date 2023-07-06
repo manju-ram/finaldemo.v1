@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Filtered Data</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+      }
+      table#solos {
+        margin-top: 3.5%;
+      }
+      #chamka {
+        font-size: 95%;
+        margin-top: 2%;
+        /* margin-left: -13%; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      p#chataka {
+        padding: 10%;
+        margin-left: 26%;
+        margin-top: 4%;
+        font-size: 200%;
+      }
+
+      h1#maxto {
+        text-align: center;
+      }
+      /* Style for the form labels */
+      label {
+        margin-left: 16px;
+        display: block;
+        margin-bottom: 3px;
+        font-weight: bold;
+      }
+
+      /* Style for the form inputs */
+      input[type="datetime-local"] {
+        padding: 5px;
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      /* Style for the form submit button */
+      input[type="submit"] {
+        margin-left: 1%;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-family: "Bebas Neue", sans-serif;
+        background-color: #306e04;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+      }
+
+      /* Optional style to center the form within the container div */
+      form {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      html {
+        background: #b9cfe2;
+      }
+
+      .button-49,
+      .button-49:after {
+        width: 161px;
+        height: 40px;
+        margin-left: 1%;
+        line-height: 32px;
+        font-size: 16px;
+        font-family: "Bebas Neue", sans-serif;
+        background: linear-gradient(45deg, transparent 5%, #000000 5%);
+        border: 0;
+        color: #fff;
+        letter-spacing: 3px;
+        box-shadow: 6px 0px 0px #00e6f6;
+        outline: transparent;
+        position: relative;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+
+      .button-49:after {
+        --slice-0: inset(50% 50% 50% 50%);
+        --slice-1: inset(80% -6px 0 0);
+        --slice-2: inset(50% -6px 30% 0);
+        --slice-3: inset(10% -6px 85% 0);
+        --slice-4: inset(40% -6px 43% 0);
+        --slice-5: inset(80% -6px 5% 0);
+
+        content: "ALTERNATE TEXT";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          45deg,
+          transparent 3%,
+          #00e6f6 3%,
+          #00e6f6 5%,
+          #ff013c 5%
+        );
+        text-shadow: -3px -3px 0px #f8f005, 3px 3px 0px #00e6f6;
+        clip-path: var(--slice-0);
+      }
+
+      .button-49:hover:after {
+        animation: 1s glitch;
+        animation-timing-function: steps(2, end);
+      }
+
+      @keyframes glitch {
+        0% {
+          clip-path: var(--slice-1);
+          transform: translate(-20px, -10px);
+        }
+        10% {
+          clip-path: var(--slice-3);
+          transform: translate(10px, 10px);
+        }
+        20% {
+          clip-path: var(--slice-1);
+          transform: translate(-10px, 10px);
+        }
+        30% {
+          clip-path: var(--slice-3);
+          transform: translate(0px, 5px);
+        }
+        40% {
+          clip-path: var(--slice-2);
+          transform: translate(-5px, 0px);
+        }
+        50% {
+          clip-path: var(--slice-3);
+          transform: translate(5px, 0px);
+        }
+        60% {
+          clip-path: var(--slice-4);
+          transform: translate(5px, 10px);
+        }
+        70% {
+          clip-path: var(--slice-2);
+          transform: translate(-10px, 10px);
+        }
+        80% {
+          clip-path: var(--slice-5);
+          transform: translate(20px, -10px);
+        }
+        90% {
+          clip-path: var(--slice-1);
+          transform: translate(-10px, 0px);
+        }
+        100% {
+          clip-path: var(--slice-1);
+          transform: translate(0);
+        }
+      }
+
+      @media (min-width: 768px) .button-49, .button-49:after {
+        width: 191px;
+        height: 40px;
+        line-height: 10%;
+      }
+
+      a#back {
+        width: 0%;
+        margin-left: 2%;
+        margin-top: -0.5%;
+      }
+
+      .button-56 {
+        align-items: center;
+        background-color: #fee6e3;
+        border: 2px solid #111;
+        border-radius: 8px;
+        box-sizing: border-box;
+        color: #111;
+        cursor: pointer;
+        display: flex;
+        font-family: Inter, sans-serif;
+        font-size: 16px;
+        height: 40px;
+        justify-content: center;
+        line-height: 24px;
+        max-width: 100%;
+        padding: 0 25px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+
+      .button-56:after {
+        background-color: #111;
+        border-radius: 8px;
+        content: "";
+        display: block;
+        height: 42px;
+        left: 0;
+        width: 96%;
+        position: absolute;
+        top: -2px;
+        transform: translate(8px, 8px);
+        transition: transform 0.2s ease-out;
+        z-index: -1;
+      }
+
+      .button-56:hover:after {
+        transform: translate(0, 0);
+      }
+
+      .button-56:active {
+        background-color: #ffdeda;
+        outline: 0;
+      }
+
+      .button-56:hover {
+        outline: 0;
+      }
+
+      @media (min-width: 768px) {
+        .button-56 {
+          padding: 0 40px;
+        }
+      }
+    </style>
+    <script>
+      function goBack() {
+        window.location.href = "/home";
+      }
+    </script>
+  </head>
+  <body>
+    <h1 id="maxto">DATA HISTORY</h1>
+
+    <div id="chamka">
+      <form method="post" action="/DataFilter">
+        <label for="start_datetime">Start Time:</label>
+        <input
+          type="datetime-local"
+          id="start_datetime"
+          name="start_datetime"
+          value="{{ start_datetime }}"
+        />
+
+        <label for="end_datetime">End Time:</label>
+        <input
+          type="datetime-local"
+          id="end_datetime"
+          name="end_datetime"
+          value="{{ end_datetime }}"
+        />
+
+        <input id="matka" type="submit" value="Get Data" />
+        <button onclick="downloadCSV()" class="button-49">Download</button>
+        <a
+          id="back"
+          href="javascript:void(0);"
+          onclick="goBack()"
+          class="button-56"
+          >Back</a
+        >
+      </form>
+    </div>
+
+    {% if channel_data %}
+    <table id="solos">
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>4-20 mA CH-1</th>
+          <th>4-20 mA CH-2</th>
+          <th>4-20 mA CH-3</th>
+          <th>4-20 mA CH-4</th>
+          <th>DI CH-1</th>
+          <th>DI CH-2</th>
+          <th>DI CH-3</th>
+          <th>DI CH-4</th>
+          <th>AI CH-1</th>
+          <th>AI CH-2</th>
+          <th>AI CH-3</th>
+          <th>AI CH-4</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% set max_rows = max(channel_data|map('length')) %} {% for row in
+        range(max_rows) %}
+        <tr>
+          <td>
+            {% if channel_data[0][row] %} {{
+            channel_data[0][row][0].strftime('%Y-%m-%d %H:%M:%S') }} {% endif %}
+          </td>
+          {% for channel in range(12) %}
+          <td>
+            {% set data = channel_data[channel][row] %} {% if data %} {{ data[1]
+            }} {% endif %}
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br />
+
+    {% else %}
+    <p id="chataka"></p>
+    {% endif %}
+
+    <!-- Include SweetAlert2 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css"
+    />
+
+    <!-- Include SweetAlert2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
+
+    <script>
+    // Function to validate the form before submitting
+function validateForm() {
+    var startDatetime = document.getElementById('start_datetime').value;
+    var endDatetime = document.getElementById('end_datetime').value;
+  
+    if (startDatetime === '' || endDatetime === '') {
+      // Display the SweetAlert2 error message
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please select both start time and end time.',
+      });
+  
+      return false;
+    }
+  
+    return true;
+  }
+  
+  // Attach the validation to the form's submit event
+  document.querySelector('#chamka form').addEventListener('submit', function (event) {
+    if (!validateForm()) {
+      event.preventDefault(); // Prevent form submission if validation fails
+    }
+  });
+  
+  // Function to handle the CSV download
+  function downloadCSV() {
+    if (!validateForm()) {
+      return; // Stop the function if validation fails
+    }
+  
+    const table = document.querySelector('table');
+    const headers = Array.from(table.querySelectorAll('th')).map(th => th.innerText);
+    const rows = Array.from(table.querySelectorAll('tr'));
+  
+    // Generate the CSV content
+    const csvContent = [headers.join(',')];
+    rows.forEach(row => {
+      const cells = Array.from(row.querySelectorAll('td'));
+      const rowData = cells.map(cell => cell.innerText);
+      csvContent.push(rowData.join(','));
+    });
+  
+    // Create a temporary link element
+    const link = document.createElement('a');
+    link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent.join('\n'));
+    link.download = 'data.csv';
+  
+    // Trigger the download
+    link.click();
+  }
+  
+
+  
+    </script>
+  </body>
+</html>
