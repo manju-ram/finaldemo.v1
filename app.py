@@ -195,31 +195,12 @@ def handle_insert_data():
         insert_data_to_mysql(channel, value)
     return 'Success'
 
-# @app.route('/insert_data', methods=['POST'])
-# def handle_insert_data():
-#     json_data = request.get_json()
-#     if isinstance(json_data, list):
-#         for item in json_data:
-#             if 'CHANNEL' in item and 'VALUE' in item:
-#                 channel = str(item['CHANNEL'])
-#                 value = str(item['VALUE'])
-#                 timestamp = (datetime.now(timezone(timedelta(hours=5, minutes=30))) + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
-#                 latest_data[channel] = {'CHANNEL': channel, 'VALUE': value, 'TIMESTAMP': timestamp}
-#                 insert_data_to_mysql(channel, value, timestamp)
-#     else:
-#         channel = str(json_data['CHANNEL'])
-#         value = str(json_data['VALUE'])
-#         timestamp = (datetime.now(timezone(timedelta(hours=5, minutes=30))) + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
-#         latest_data[channel] = {'CHANNEL': channel, 'VALUE': value, 'TIMESTAMP': timestamp}
-#         insert_data_to_mysql(channel, value, timestamp)
-#     return 'Success'
+def insert_data_to_mysql(channel, value):
+    current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+    query = "INSERT INTO logging_data (timestamp, channel, value) VALUES (%s, %s, %s)"
+    values = (current_time, channel, value)
+    execute_query(query, values)
 
-
-# def insert_data_to_mysql(channel, value):
-#     current_time = time.strftime('%Y-%m-%d %H:%M:%S')
-#     query = "INSERT INTO logging_data (timestamp, channel, value) VALUES (%s, %s, %s)"
-#     values = (current_time, channel, value)
-#     execute_query(query, values)
 
 @app.route('/data/', methods=['POST', 'GET'])
 def data():
