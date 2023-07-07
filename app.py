@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, render_template, redirect
 import time
 import threading
 import pymysql
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 app = Flask(__name__)
 
@@ -178,6 +178,23 @@ def filter_data():
         end_datetime_str = ''
 
     return render_template('DataFilter.html', channel_data=channel_data, start_datetime=start_datetime_str, end_datetime=end_datetime_str, max=max)
+# @app.route('/insert_data', methods=['POST'])
+# def handle_insert_data():
+#     json_data = request.get_json()
+#     if isinstance(json_data, list):
+#         for item in json_data:
+#             if 'CHANNEL' in item and 'VALUE' in item:
+#                 channel = str(item['CHANNEL'])
+#                 value = str(item['VALUE'])
+#                 latest_data[channel] = {'CHANNEL': channel, 'VALUE': value}
+#                 insert_data_to_mysql(channel, value)
+#     else:
+#         channel = str(json_data['CHANNEL'])
+#         value = str(json_data['VALUE'])
+#         latest_data[channel] = {'CHANNEL': channel, 'VALUE': value}
+#         insert_data_to_mysql(channel, value)
+#     return 'Success'
+
 @app.route('/insert_data', methods=['POST'])
 def handle_insert_data():
     json_data = request.get_json()
@@ -186,15 +203,16 @@ def handle_insert_data():
             if 'CHANNEL' in item and 'VALUE' in item:
                 channel = str(item['CHANNEL'])
                 value = str(item['VALUE'])
-                latest_data[channel] = {'CHANNEL': channel, 'VALUE': value}
-                insert_data_to_mysql(channel, value)
+                timestamp = (datetime.now(timezone(timedelta(hours=5, minutes=30))) + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
+                latest_data[channel] = {'CHANNEL': channel, 'VALUE': value, 'TIMESTAMP': timestamp}
+                insert_data_to_mysql(channel, value, timestamp)
     else:
         channel = str(json_data['CHANNEL'])
         value = str(json_data['VALUE'])
-        latest_data[channel] = {'CHANNEL': channel, 'VALUE': value}
-        insert_data_to_mysql(channel, value)
+        timestamp = (datetime.now(timezone(timedelta(hours=5, minutes=30))) + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
+        latest_data[channel] = {'CHANNEL': channel, 'VALUE': value, 'TIMESTAMP': timestamp}
+        insert_data_to_mysql(channel, value, timestamp)
     return 'Success'
-
 
 
 def insert_data_to_mysql(channel, value):
